@@ -1,29 +1,24 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PDF Öffnen</title>
-  <script>
-window.onload = function () {
-  const params = new URLSearchParams(window.location.search);
-  const file = params.get("file");
-  if (!file) return;
+<meta charset="utf-8">
+<title>PDF Öffnen</title>
+<script>
+  // 👉 HIER deinen aktuellen App-Pfad eintragen:
+  const APP_BASE = "https://probstjano.github.io/OMNIA-App/";
 
-  // Dynamisch die Basis-URL bestimmen (egal wie dein Repo oder Domain heißt)
-  const base = window.location.origin + window.location.pathname.replace(/openpdf\.html$/, '');
+  const p = new URLSearchParams(location.search);
+  const file = p.get("file");
 
-  if (window.navigator.standalone) {
-    window.location.href = base + file;
+  if (file) {
+    // vollständige URL zusammenbauen
+    const target = APP_BASE + file;
+    // In Safari / außerhalb der PWA öffnen
+    location.href = target;
   } else {
-    window.open(base + file, "_blank");
+    document.body.innerHTML = "Keine Datei angegeben.";
   }
-
-  setTimeout(() => window.close(), 1500);
-};
 </script>
-</head>
-<body>
-  <p style="text-align:center;margin-top:2rem;">PDF wird geöffnet …</p>
+<body style="text-align:center;margin-top:2rem">
+PDF wird geöffnet …
 </body>
 </html>
